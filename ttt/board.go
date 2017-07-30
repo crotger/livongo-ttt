@@ -97,16 +97,15 @@ func (b *Board) CheckForWinner(lastMoveCell int) *Victory {
 	return vic
 }
 
-func (b *Board) generateCellList(startRow int, startCol int, dirRow int, dirCol int) []int {
-	results := []int{}
+func (b *Board) generateCellList(startRow int, startCol int, dirRow int, dirCol int) (locs []int) {
 	for i := 0; i < b.victoryNumber*2-1; i++ {
 		r, c := startRow+(i*dirRow), startCol+(i*dirCol)
 		if r < 0 || c < 0 || r >= b.Rows || c >= b.Cols {
 			continue
 		}
-		results = append(results, b.rowCol2Cell(r, c))
+		locs = append(locs, b.rowCol2Cell(r, c))
 	}
-	return results
+	return
 }
 
 func (b *Board) check(locs []int, mark Marker) *Victory {
@@ -131,6 +130,19 @@ func (b *Board) check(locs []int, mark Marker) *Victory {
 	}
 
 	return nil
+}
+
+func (b *Board) Find(mark Marker) (cells []int) {
+	for cell, m := range b.cells {
+		if m == mark {
+			cells = append(cells, cell)
+		}
+	}
+	return
+}
+
+func (b *Board) IsFull() bool {
+	return len(b.Find(BLANK)) == 0
 }
 
 func (b Board) String() (s string) {

@@ -63,14 +63,14 @@ func (b *Board) rowCol2Cell(row int, col int) int {
 	return row*b.Cols + col
 }
 
-type victory struct {
+type Victory struct {
 	mark Marker
 
 	start int
 	end   int
 }
 
-func (b *Board) CheckForWinner(lastMoveCell int) *victory {
+func (b *Board) CheckForWinner(lastMoveCell int) *Victory {
 	row, col := b.cell2RowCol(lastMoveCell)
 	mark := b.cells[lastMoveCell]
 
@@ -109,7 +109,7 @@ func (b *Board) generateCellList(startRow int, startCol int, dirRow int, dirCol 
 	return results
 }
 
-func (b *Board) check(locs []int, mark Marker) *victory {
+func (b *Board) check(locs []int, mark Marker) *Victory {
 
 	numAdj := 0
 	for i, cell := range locs {
@@ -121,7 +121,7 @@ func (b *Board) check(locs []int, mark Marker) *victory {
 		if m == mark {
 			numAdj += 1
 			if numAdj >= b.victoryNumber {
-				return &victory{
+				return &Victory{
 					mark:  mark,
 					start: locs[i-b.victoryNumber+1],
 					end:   cell,

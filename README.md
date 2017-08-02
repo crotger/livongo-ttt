@@ -1,5 +1,9 @@
 # Livongo Coding Challenge - Tic Tac Toe
 
-To run:
+To install:
 
-`go run main.go` OR `go build main.go -o tictactoe`, `./tictactoe`
+`git clone https://github.com/crotger/livongo-challenge`
+
+To run (from source directory):
+
+`go run main.go` OR `go build -o tictactoe`, `./tictactoe`

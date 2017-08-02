@@ -41,7 +41,7 @@ func (b *Board) Set(cell int, mark Marker) error {
 	}
 
 	if b.cells[cell] != BLANK {
-		return fmt.Errorf("cell %v already filled", cell)
+		return fmt.Errorf("cell already filled")
 	}
 
 	b.cells[cell] = mark

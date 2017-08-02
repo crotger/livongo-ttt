@@ -70,36 +70,40 @@ type Victory struct {
 	end   int
 }
 
+// Represents a direction to move on the tic tac toe board
+type direction struct {
+	row int
+	col int
+}
+
+var (
+	HORZ   direction = direction{0, 1}  // horizontal
+	VERT             = direction{1, 0}  // vertical
+	DIAG_U           = direction{1, 1}  // diagonal up
+	DIAG_D           = direction{-1, 1} // diagonal down
+)
+
+var directions []direction = []direction{HORZ, VERT, DIAG_U, DIAG_D}
+
 func (b *Board) CheckForWinner(lastMoveCell int) *Victory {
 	row, col := b.cell2RowCol(lastMoveCell)
 	mark := b.cells[lastMoveCell]
-
-	//vertical
-	vic := b.check(b.generateCellList(row-b.victoryNumber+1, col, 1, 0), mark)
-	if vic != nil {
-		return vic
+	var vic *Victory
+	for _, dir := range directions {
+		vic = b.check(b.generateCellList(row, col, dir), mark)
+		if vic != nil {
+			return vic
+		}
 	}
-
-	//horizontal
-	vic = b.check(b.generateCellList(row, col-b.victoryNumber+1, 0, 1), mark)
-	if vic != nil {
-		return vic
-	}
-
-	//diagonal down
-	vic = b.check(b.generateCellList(row-b.victoryNumber+1, col-b.victoryNumber+1, 1, 1), mark)
-	if vic != nil {
-		return vic
-	}
-
-	//diagonal up
-	vic = b.check(b.generateCellList(row+b.victoryNumber-1, col-b.victoryNumber+1, -1, 1), mark)
 	return vic
 }
 
-func (b *Board) generateCellList(startRow int, startCol int, dirRow int, dirCol int) (locs []int) {
+// generates the possible places for a win centered around midRow, midCol in the given direction
+func (b *Board) generateCellList(midRow int, midCol int, dir direction) (locs []int) {
+	startRow, startCol := midRow-(dir.row*(b.victoryNumber-1)), midCol-(dir.col*(b.victoryNumber-1))
+
 	for i := 0; i < b.victoryNumber*2-1; i++ {
-		r, c := startRow+(i*dirRow), startCol+(i*dirCol)
+		r, c := startRow+(i*dir.row), startCol+(i*dir.col)
 		if r < 0 || c < 0 || r >= b.Rows || c >= b.Cols {
 			continue
 		}

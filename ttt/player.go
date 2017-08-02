@@ -3,7 +3,12 @@ package ttt
 import (
 	"fmt"
 	"math/rand"
+	"time"
 )
+
+func init() {
+	rand.Seed(time.Now().UnixNano())
+}
 
 type Player interface {
 	Name() string

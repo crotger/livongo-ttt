@@ -8,7 +8,7 @@ import (
 type Player interface {
 	Name() string
 	Play(*Board) (int, error)
-	GetMarker() Marker
+	Marker() Marker
 }
 
 type HumanPlayer struct {
@@ -20,7 +20,7 @@ func (player *HumanPlayer) Name() string {
 	return player.Nickname
 }
 
-func (h *HumanPlayer) GetMarker() Marker {
+func (h *HumanPlayer) Marker() Marker {
 	return h.Mark
 }
 
@@ -68,7 +68,7 @@ func (r *RandomAI) Name() string {
 	return "Random Robot"
 }
 
-func (r *RandomAI) GetMarker() Marker {
+func (r *RandomAI) Marker() Marker {
 	return r.Mark
 }
 

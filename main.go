@@ -43,6 +43,7 @@ func main() {
 
 		if b.IsFull() {
 			gameOver = true
+			fmt.Println("The board is full. No winner!")
 		}
 
 		currentPlayer = (currentPlayer + 1) % 2

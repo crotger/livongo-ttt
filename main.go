@@ -38,7 +38,7 @@ func main() {
 		vic := b.CheckForWinner(cell)
 		if vic != nil {
 			gameOver = true
-			fmt.Println(cp.Name(), "wins!")
+			fmt.Printf("%v wins with 3 %v's from %v to %v!\n", cp.Name(), vic.Mark, vic.Start+1, vic.End+1)
 		}
 
 		if b.IsFull() {

@@ -63,11 +63,12 @@ func (b *Board) rowCol2Cell(row int, col int) int {
 	return row*b.Cols + col
 }
 
+// represents the end result of a game. Start and end show where the 3-in-a-row was.
 type Victory struct {
-	mark Marker
+	Mark Marker
 
-	start int
-	end   int
+	Start int
+	End   int
 }
 
 // Represents a direction to move on the tic tac toe board
@@ -125,9 +126,9 @@ func (b *Board) check(locs []int, mark Marker) *Victory {
 			numAdj += 1
 			if numAdj >= b.victoryNumber {
 				return &Victory{
-					mark:  mark,
-					start: locs[i-b.victoryNumber+1],
-					end:   cell,
+					Mark:  mark,
+					Start: locs[i-b.victoryNumber+1],
+					End:   cell,
 				}
 			}
 		}

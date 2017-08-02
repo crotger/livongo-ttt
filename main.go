@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/crotger/livongo-challenge/ttt"
 	"time"
+
+	"./ttt"
 )
 
 func main() {
